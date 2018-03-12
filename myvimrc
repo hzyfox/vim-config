@@ -1,5 +1,6 @@
 "快捷键说明
 "默认的leader是 \
+"<leader>t is open nerdtree
 "ma is toogle bookmarket on into file, and `a is go to a bookmarke
 "<leader>y is copy content to y register
 "<leader>p is paste content to buffer from y register
@@ -14,6 +15,8 @@
 "--------------------NerdTree
 "<leader>t 是open/close nerdtree
 "? is ask for nredtree help 
+"ctrl-p is open ctrlp
+"Use <c-t> or <c-v>, <c-x> to open the selected entry in a new tab or in a new split.
 "ctrl-t is open file in new tab
 "ctrl-o is open file choose by slef
 "bookmark and etc can press ? for help
@@ -22,8 +25,18 @@
 "--------------------python
 "<leader>f means format code
 "<leader>s means static check
+"<leader>b open bash/terminal split
+"<leader>vb open bash/terminal vsplit
+"can use mouse in terminal
+set mouse=a
+"set auto ident
+set ai
+"set smart ident
+set smartindent
+
 set encoding=utf-8
 set t_Co=256 "set 256 color
+"to not compatible with vi
 set nocompatible              " be iMproved, required
 filetype off                  " required
 set clipboard=unnamed
@@ -34,7 +47,7 @@ let python_highlight_all=1
 "set the color 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
-
+set showmatch
 "set ident for python file
 au BufNewFile,BufRead *.py
     \ set tabstop=4 |
@@ -47,8 +60,6 @@ au BufNewFile,BufRead *.py
 " avoid unneccesary blank
 hi BadWhitespace guifg=gray guibg=red ctermfg=gray ctermbg=red
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
-let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 call vundle#begin()
 
 " let Vundle manage Vundle, required
@@ -61,7 +72,7 @@ Plugin 'jistr/vim-nerdtree-tabs'
 "python auto ident
 Plugin 'vim-scripts/indentpython.vim'
 "python complete
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 "python syntax hl
 Plugin 'scrooloose/syntastic'
 "还可以通过这个小巧的插件，添加PEP8代码风格检查
@@ -79,10 +90,19 @@ Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'suan/vim-instant-markdown'
+"for vim shell
+Plugin 'oplatek/Conque-Shell'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
 call togglebg#map("<F5>")"更换背景颜色 使用F5
+"delete ctrlp cache
+let g:ctrlp_prompt_mappings = {
+    \ 'PrtClearCache()':      ['<c-r>'],
+    \ }
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
 autocmd FileType python noremap <buffer> <leader>s :call Flake8()<CR>
 autocmd FileType python noremap <buffer> <leader>f :call Autopep8()<CR>
 filetype plugin indent on    " required
@@ -147,7 +167,9 @@ nnoremap <C-H> <C-W><C-H>
 :nnoremap<leader>9 :tabn 9<CR>
 :nnoremap<leader>0 :tabn 10<CR>
 
-
+"vim bash
+nnoremap    <leader>b              :ConqueTermSplit bash<CR>
+nnoremap    <leader>vb              :ConqueTermVSplit bash<CR>
 
 
 
@@ -254,7 +276,7 @@ let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 " Set minimum syntax keyword length.
 let g:neocomplete#sources#syntax#min_keyword_length = 3
-
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 " Define dictionary.
 let g:neocomplete#sources#dictionary#dictionaries = {
     \ 'default' : '',
@@ -316,3 +338,5 @@ endif
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 hi CursorLine   cterm=underline ctermfg=LightBlue  ctermbg=Black guibg=NONE guifg=NONE 
+hi MatchParen ctermbg=red ctermfg=blue
+
