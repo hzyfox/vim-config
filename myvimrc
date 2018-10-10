@@ -34,6 +34,10 @@ set ai
 "set smart ident
 set smartindent
 
+"replace tab with 4 space
+set ts=4
+set expandtab
+set autoindent
 set encoding=utf-8
 set t_Co=256 "set 256 color
 "to not compatible with vi
