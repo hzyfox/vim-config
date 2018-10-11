@@ -144,7 +144,8 @@ let NERDTreeShowBookmarks=1
 let g:ctrlp_show_hidden = 1
 
 let g:tagbar_ctags_bin='/usr/local/bin/ctags'
-
+"支持256色
+let g:solarized_termcolors=256
 "set shortcut key for myself
 "set copy to system clipboard
 vnoremap <leader>y "+y
@@ -267,7 +268,8 @@ if has('gui_running')
   set background=dark
   colorscheme solarized
 else
-  colorscheme Zenburn
+  set background=light
+  colorscheme solarized
 endif
 
 "set for neocomplete
@@ -341,6 +343,5 @@ endif
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-hi CursorLine   cterm=underline ctermfg=LightBlue  ctermbg=Black guibg=NONE guifg=NONE 
 hi MatchParen ctermbg=red ctermfg=blue
 
