@@ -1,0 +1,47 @@
+[user]
+	name = 孤月
+	email = cszhenyuhu@foxmail.com
+[diff]
+  tool = meld
+[difftool]
+  prompt = false
+[difftool "meld"]
+  trustExitCode = true
+  cmd = open -W -a Meld --args \"$LOCAL\" \"$REMOTE\"
+[merge]
+  tool = meld
+[mergetool]
+  prompt = false
+[mergetool "meld"]
+  trustExitCode = true
+  cmd = open -W -a Meld --args --auto-merge \"$PWD/$LOCAL\" \"$PWD/$BASE\" \"$PWD/$REMOTE\" --output=\"$PWD/$MERGED\"
+[alias]
+  last = log -1
+  co = checkout
+  st = status
+  mt = mergetool
+  dt = difftool 
+  dtd = difftool --dir-diff
+  sdt=!git dt && git submodule foreach 'git dt'
+  spush=push --recurse-submodules=on-demand
+  supdate=submodule update --remote --merge
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  ps = push server master
+  br = branch
+  ci = commit
+  showtool = "!showci () { rev=${1:-HEAD}; git difftool $rev~1 $rev; }; showci $1"
+  out = log --pretty=oneline --abbrev-commit --graph @{u}.. --stat
+  in = !git fetch && git log --pretty=oneline --abbrev-commit --graph ..@{u} 
+
+
+[commit]
+	template = /Users/husterfox/.commit_template
+[core]
+	editor = vim
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[credential]
+	helper = osxkeychain
