@@ -1,0 +1,6 @@
+.DS_Store
+after/
+bundle/
+doc/
+gitconfig
+plugin/
